@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -34,6 +35,35 @@ public class Lander : MonoBehaviour
             float turnSpeed = -100f;
             landerRigidbody2D.AddTorque(turnSpeed * Time.deltaTime);
         }
+    }
+
+    // using 2D version of OnCollisionEnter since 3D version won't work properly
+    private void OnCollisionEnter2D(Collision2D collision2D)
+    {
+        if (!collision2D.gameObject.TryGetComponent(out LandingPad landingPad))
+        {
+            Debug.Log("Crashed on terrain!");
+            return;
+        }
+
+        float softLandingVelocityMagnitude = 4f;
+        if (collision2D.relativeVelocity.magnitude > softLandingVelocityMagnitude)
+        {
+            // landed too hard
+            Debug.Log("Landing too hard!");
+            return;
+        }
+
+        float dotVector = Vector2.Dot(Vector2.up, transform.up);
+        float minDotVector = 0.90f;
+        if (dotVector < minDotVector)
+        {
+            // landed on a steep angle
+            Debug.Log("landed on a too steep angle!");
+            return;
+        }
+
+        Debug.Log("Good Landing!");
     }
 
     // Update is called once per frame (EVERY SINGLE FRAME)
