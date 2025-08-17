@@ -26,14 +26,27 @@ public class Lander : MonoBehaviour
     public event EventHandler<OnLandedEventArgs> OnLanded;  // <OnLandedEventArgs> is a generic label
     public class OnLandedEventArgs : EventArgs
     {
+        public LandingType landingType;
         public int score;
+        public float dotVector;
+        public float landingSpeed;
+        public float scoreMultiplier;        
     }  // custom eventArgs class to pass additional information along with the invoked event
     #endregion
+
+    public enum LandingType
+    {
+        Success,
+        WrongLandingArea,
+        TooSteepAngle,
+        TooFastLanding,
+    }
 
     #region Fields
     // fields should almost always be private
     private Rigidbody2D landerRigidbody2D;  // stores our lander's Rigidbody2D
-    private float fuelAmount = 10f; 
+    private float fuelAmount; 
+    private float fuelAmountMax = 10f; 
     #endregion
 
     private void Awake()
@@ -41,6 +54,7 @@ public class Lander : MonoBehaviour
         // general rule of thumb: grab local references in Awake() and external references in Start()
         Instance = this;  // initializing the class instance
         landerRigidbody2D = GetComponent<Rigidbody2D>();
+        fuelAmount = fuelAmountMax;
     }
 
     // FixedUpdate() runs on a fixed timestep (see project settings) independent of framerate. Useful to ensure consistent physics performance
@@ -97,6 +111,14 @@ public class Lander : MonoBehaviour
         if (!collision2D.gameObject.TryGetComponent(out LandingPad landingPad))
         {
             Debug.Log("Crashed on terrain!");
+            OnLanded?.Invoke(this, new OnLandedEventArgs
+            {
+                landingType = LandingType.WrongLandingArea,
+                dotVector = 0f,
+                landingSpeed = 0f,
+                scoreMultiplier = 0,
+                score = 0,
+            });
             return;
         }
 
@@ -106,6 +128,14 @@ public class Lander : MonoBehaviour
         {
             // landed too hard
             Debug.Log("Landing too hard!");
+            OnLanded?.Invoke(this, new OnLandedEventArgs
+            {
+                landingType = LandingType.TooFastLanding,
+                dotVector = 0f,
+                landingSpeed = relativeVelocityMagnitude,
+                scoreMultiplier = 0,
+                score = 0,
+            });
             return;
         }
 
@@ -115,6 +145,14 @@ public class Lander : MonoBehaviour
         {
             // landed on a steep angle
             Debug.Log("landed on a too steep angle!");
+            OnLanded?.Invoke(this, new OnLandedEventArgs
+            {
+                landingType = LandingType.TooSteepAngle,
+                dotVector = dotVector,
+                landingSpeed = relativeVelocityMagnitude,
+                scoreMultiplier = 0,
+                score = 0,
+            });
             return;
         }
 
@@ -131,13 +169,18 @@ public class Lander : MonoBehaviour
         Debug.Log("landingAngleScore: " + landingAngleScore);
         Debug.Log("landingSpeedScore: " + landingSpeedScore);
 
-        int score = Mathf.RoundToInt((landingAngleScore + landingSpeedScore) * landingPad.getScoreMultiplier());
+        int score = Mathf.RoundToInt((landingAngleScore + landingSpeedScore) * landingPad.GetScoreMultiplier());
         Debug.Log("Score: " + score);
-
-        OnLanded?.Invoke(this, new OnLandedEventArgs {
-            score = score
-        });  // custom eventArgs for when we want to pass on additional information with our invoked event (i.e. score)
         #endregion
+
+        OnLanded?.Invoke(this, new OnLandedEventArgs
+        {
+            landingType = LandingType.Success,
+            dotVector = dotVector,
+            landingSpeed = relativeVelocityMagnitude,
+            scoreMultiplier = landingPad.GetScoreMultiplier(),
+            score = score,
+        });  // custom eventArgs for when we want to pass on additional information with our invoked event (i.e. score)
     }
 
     /// <summary>
@@ -152,7 +195,11 @@ public class Lander : MonoBehaviour
         {
             float addFuelAmount = 10f;    // reminder: NO MAGIC NUMBERS
             fuelAmount += addFuelAmount;
-            fuelPickup.destroySelf();
+            if (fuelAmount > fuelAmountMax)
+            {
+                fuelAmount = fuelAmountMax;
+            }
+            fuelPickup.DestroySelf();
         }
 
         if (collider2D.gameObject.TryGetComponent<CoinPickup>(out CoinPickup coinPickup))
@@ -178,5 +225,25 @@ public class Lander : MonoBehaviour
     {
         float fuelConsumptionAmount = 1f;
         fuelAmount -= fuelConsumptionAmount * Time.deltaTime;
+    }
+
+    public float GetFuel()
+    {
+        return fuelAmount;
+    }
+
+    public float GetFuelAmountNormalized()
+    {
+        return fuelAmount / fuelAmountMax;
+    }
+
+    public float GetSpeedX()
+    {
+        return landerRigidbody2D.linearVelocityX;
+    }
+
+    public float GetSpeedY()
+    {
+        return landerRigidbody2D.linearVelocityY;
     }
 }

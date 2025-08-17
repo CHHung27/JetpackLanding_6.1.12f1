@@ -5,7 +5,7 @@ public class FuelPickup : MonoBehaviour
     /// <summary>
     /// removes self game object
     /// </summary>
-    public void destroySelf()
+    public void DestroySelf()
     {
         Destroy(gameObject);
     }

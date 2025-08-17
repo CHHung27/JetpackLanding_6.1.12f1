@@ -9,6 +9,6 @@ public class LandingPadVisual : MonoBehaviour
     private void Awake()
     {
         LandingPad landingPad = GetComponent<LandingPad>();
-        scoreMultiplierTextMesh.text = "x" + landingPad.getScoreMultiplier();        // sets up the landing pad TextMeshPro text to say xscoreMultiplier. This is a modular way of setting up landingPad multiplier text asset
+        scoreMultiplierTextMesh.text = "x" + landingPad.GetScoreMultiplier();        // sets up the landing pad TextMeshPro text to say xscoreMultiplier. This is a modular way of setting up landingPad multiplier text asset
     }
 }

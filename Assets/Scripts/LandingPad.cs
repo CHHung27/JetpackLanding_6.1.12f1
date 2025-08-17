@@ -9,7 +9,7 @@ public class LandingPad : MonoBehaviour
     /// returns the private field scoreMultiplier
     /// </summary>
     /// <returns> scoreMultiplier </returns>
-    public int getScoreMultiplier()
+    public int GetScoreMultiplier()
     {
         return scoreMultiplier;
     }

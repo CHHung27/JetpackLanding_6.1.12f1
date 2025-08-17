@@ -2,15 +2,28 @@
 
 public class GameManager : MonoBehaviour
 {
+    public static GameManager Instance { get; private set; }
+
     // need reference to the Lander
     //[SerializeField] private Lander lander; // 1) can do this and drag lander object in the, OR do what we did below
     private int score;
+    private float time;
+
+    private void Awake()
+    {
+        Instance = this;
+    }
 
     private void Start()
     {
         // getting the lander reference from the class itself since we initialized it as a singleton/static 
         Lander.Instance.OnCoinPickup += Lander_OnCoinPickup;  
         Lander.Instance.OnLanded += Lander_OnLanded;          
+    }
+
+    private void Update()
+    {
+        time += Time.deltaTime;
     }
 
     private void Lander_OnLanded(object sender, Lander.OnLandedEventArgs e)
@@ -31,5 +44,15 @@ public class GameManager : MonoBehaviour
     {
         score += addScoreAmount;
         Debug.Log("Total Score: " + score);
+    }
+
+    public int GetScore()
+    {
+        return score;
+    }
+
+    public float GetTime()
+    {
+        return time;
     }
 }
