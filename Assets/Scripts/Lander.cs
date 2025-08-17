@@ -1,26 +1,45 @@
-using System;
+﻿using System;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-// to use this script as an component, we need to inherit from MonoBehaviour
+// to use this script (and any script for that matter) as an component, we need to inherit from MonoBehaviour
 public class Lander : MonoBehaviour
 {
+    /*
+     * Singleton pattern: creating an instance of the class itself. Essentially an easy way to 
+     * create an global reference to an uniquely exisiting object (only one of this instance exists).
+     * Other classes can get a reference to this instance by calling the class.
+     * 
+     * Static: belonging to the class itself, not any instances
+     */
+    public static Lander Instance { get; private set; }  // also remember to set reference to self in Awake()
+
+
     #region Events
     // EventHandlers call events, which notifies other classes when something happens
     public event EventHandler OnUpForce;
     public event EventHandler OnLeftForce;
     public event EventHandler OnRightForce; 
-    public event EventHandler OnBeforeForce; 
+    public event EventHandler OnBeforeForce;
+    public event EventHandler OnCoinPickup;
+    public event EventHandler<OnLandedEventArgs> OnLanded;  // <OnLandedEventArgs> is a generic label
+    public class OnLandedEventArgs : EventArgs
+    {
+        public int score;
+    }  // custom eventArgs class to pass additional information along with the invoked event
     #endregion
 
+    #region Fields
     // fields should almost always be private
-    private Rigidbody2D landerRigidbody2D;             // stores our lander's Rigidbody2D
-    private float fuelAmount = 10f;
+    private Rigidbody2D landerRigidbody2D;  // stores our lander's Rigidbody2D
+    private float fuelAmount = 10f; 
+    #endregion
 
     private void Awake()
     {
         // general rule of thumb: grab local references in Awake() and external references in Start()
+        Instance = this;  // initializing the class instance
         landerRigidbody2D = GetComponent<Rigidbody2D>();
     }
 
@@ -30,8 +49,6 @@ public class Lander : MonoBehaviour
     private void FixedUpdate()
     {
         OnBeforeForce?.Invoke(this, EventArgs.Empty);  // constantly invoke OnBeforeForce event, which turns off thruster emissions in LanderVisuals.cs
-
-        Debug.Log(fuelAmount);
 
         // if no fuel, don't receive input
         if (fuelAmount <= 0)
@@ -115,8 +132,11 @@ public class Lander : MonoBehaviour
         Debug.Log("landingSpeedScore: " + landingSpeedScore);
 
         int score = Mathf.RoundToInt((landingAngleScore + landingSpeedScore) * landingPad.getScoreMultiplier());
+        Debug.Log("Score: " + score);
 
-        Debug.Log("Score: " + score); 
+        OnLanded?.Invoke(this, new OnLandedEventArgs {
+            score = score
+        });  // custom eventArgs for when we want to pass on additional information with our invoked event (i.e. score)
         #endregion
     }
 
@@ -133,6 +153,12 @@ public class Lander : MonoBehaviour
             float addFuelAmount = 10f;    // reminder: NO MAGIC NUMBERS
             fuelAmount += addFuelAmount;
             fuelPickup.destroySelf();
+        }
+
+        if (collider2D.gameObject.TryGetComponent<CoinPickup>(out CoinPickup coinPickup))
+        {
+            OnCoinPickup?.Invoke(this, EventArgs.Empty);  // invoke OnCoinPickup event; score managed by GameManager
+            coinPickup.DestroySelf();
         }
     }
         
