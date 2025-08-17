@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
     //[SerializeField] private Lander lander; // 1) can do this and drag lander object in the, OR do what we did below
     private int score;
     private float time;
+    private bool isTimerActive;
 
     private void Awake()
     {
@@ -18,12 +19,22 @@ public class GameManager : MonoBehaviour
     {
         // getting the lander reference from the class itself since we initialized it as a singleton/static 
         Lander.Instance.OnCoinPickup += Lander_OnCoinPickup;  
-        Lander.Instance.OnLanded += Lander_OnLanded;          
+        Lander.Instance.OnLanded += Lander_OnLanded;
+        Lander.Instance.OnStateChanged += Lander_OnStateChanged;
+    }
+
+    private void Lander_OnStateChanged(object sender, Lander.OnStateChangedEventArgs e)
+    {
+        isTimerActive = e.state == Lander.State.Normal;  // isTimerActive is true if lander state is normal
     }
 
     private void Update()
     {
-        time += Time.deltaTime;
+        // start keeping time only when timer is active -> lander is in normal state
+        if (isTimerActive)
+        {
+            time += Time.deltaTime;
+        }
     }
 
     private void Lander_OnLanded(object sender, Lander.OnLandedEventArgs e)

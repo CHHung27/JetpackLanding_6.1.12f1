@@ -6,6 +6,8 @@ using UnityEngine.InputSystem;
 // to use this script (and any script for that matter) as an component, we need to inherit from MonoBehaviour
 public class Lander : MonoBehaviour
 {
+    private const float GRAVITY_NORMAL = 0.7f;
+
     /*
      * Singleton pattern: creating an instance of the class itself. Essentially an easy way to 
      * create an global reference to an uniquely exisiting object (only one of this instance exists).
@@ -23,6 +25,11 @@ public class Lander : MonoBehaviour
     public event EventHandler OnRightForce; 
     public event EventHandler OnBeforeForce;
     public event EventHandler OnCoinPickup;
+    public event EventHandler<OnStateChangedEventArgs> OnStateChanged;
+    public class OnStateChangedEventArgs : EventArgs
+    {
+        public State state;
+    }
     public event EventHandler<OnLandedEventArgs> OnLanded;  // <OnLandedEventArgs> is a generic label
     public class OnLandedEventArgs : EventArgs
     {
@@ -42,19 +49,32 @@ public class Lander : MonoBehaviour
         TooFastLanding,
     }
 
+    public enum State
+    {
+        WaitingToStart,
+        Normal,
+        GameOver,
+    }
+
     #region Fields
     // fields should almost always be private
     private Rigidbody2D landerRigidbody2D;  // stores our lander's Rigidbody2D
     private float fuelAmount; 
-    private float fuelAmountMax = 10f; 
+    private float fuelAmountMax = 10f;
+    private State state;
     #endregion
 
     private void Awake()
     {
         // general rule of thumb: grab local references in Awake() and external references in Start()
         Instance = this;  // initializing the class instance
+
         landerRigidbody2D = GetComponent<Rigidbody2D>();
+        landerRigidbody2D.gravityScale = 0f;  // turning off gravity so lander doesn't move before player input
+
         fuelAmount = fuelAmountMax;
+
+        SetState(State.WaitingToStart);
     }
 
     // FixedUpdate() runs on a fixed timestep (see project settings) independent of framerate. Useful to ensure consistent physics performance
@@ -64,44 +84,66 @@ public class Lander : MonoBehaviour
     {
         OnBeforeForce?.Invoke(this, EventArgs.Empty);  // constantly invoke OnBeforeForce event, which turns off thruster emissions in LanderVisuals.cs
 
-        // if no fuel, don't receive input
-        if (fuelAmount <= 0)
+        switch (state)
         {
-            return;
+            case State.WaitingToStart:
+                // if any key is pressed, consumeFuel()
+                if (Keyboard.current.upArrowKey.isPressed ||
+                    Keyboard.current.leftArrowKey.isPressed ||
+                    Keyboard.current.rightArrowKey.isPressed)
+                {
+                    landerRigidbody2D.gravityScale = GRAVITY_NORMAL;
+                    SetState(State.Normal);
+                }
+                break;
+            case State.Normal:
+                // if no fuel, don't receive input
+                if (fuelAmount <= 0)
+                {
+                    return;
+                }
+
+                #region Player Input
+                // if any key is pressed, ConsumeFuel()
+                if (Keyboard.current.upArrowKey.isPressed ||
+                    Keyboard.current.leftArrowKey.isPressed ||
+                    Keyboard.current.rightArrowKey.isPressed)
+                {
+                    ConsumeFuel();
+                }
+
+                // getting current active keyboard input using input system (new)
+                if (Keyboard.current.upArrowKey.isPressed)
+                {
+                    float force = 700f;                                                 // use local variables with clear descriptive names, not magic numbers!
+                    landerRigidbody2D.AddForce(force * transform.up * Time.deltaTime);  // using transform.up allows the force to be applied where the lander is pointing, rather the global "up"
+                    OnUpForce?.Invoke(this, EventArgs.Empty);         // (?) is the null conditional operator. Operation continues only if OnUpForce is not null
+                                                                      // .Invoke(object invoking event, args to send with event); Invoked events can be listened
+                                                                      // to by other classes
+                }
+
+                if (Keyboard.current.leftArrowKey.isPressed)
+                {
+                    float turnSpeed = +100f;
+                    landerRigidbody2D.AddTorque(turnSpeed * Time.deltaTime);  // Time.deltaTime helps with mitigating client framerate differences as it splits up the
+                                                                              // physics calculations relative to the time elapsed between frames
+                    OnLeftForce?.Invoke(this, EventArgs.Empty);
+                }
+
+                if (Keyboard.current.rightArrowKey.isPressed)
+                {
+                    float turnSpeed = -100f;
+                    landerRigidbody2D.AddTorque(turnSpeed * Time.deltaTime);
+                    OnRightForce?.Invoke(this, EventArgs.Empty);
+                }
+                #endregion
+                break;
+            case State.GameOver:
+                // don't do anything when GameOver
+                break;
         }
 
-        #region Player Input
-        // if any key is pressed, consumeFuel()
-        if (Keyboard.current.upArrowKey.isPressed ||
-            Keyboard.current.leftArrowKey.isPressed ||
-            Keyboard.current.rightArrowKey.isPressed)
-        {
-            ConsumeFuel();
-        }
-
-        // getting current active keyboard input using input system (new)
-        if (Keyboard.current.upArrowKey.isPressed)
-        {
-            float force = 700f;                                                 // use local variables with clear descriptive names, not magic numbers!
-            landerRigidbody2D.AddForce(force * transform.up * Time.deltaTime);  // using transform.up allows the force to be applied where the lander is pointing, rather the global "up"
-            OnUpForce?.Invoke(this, EventArgs.Empty);         // (?) is the null conditional operator. Operation continues only if OnUpForce is not null
-                                                              // .Invoke(object invoking event, args to send with event); Invoked events can be listened
-                                                              // to by other classes
-        }
-        if (Keyboard.current.leftArrowKey.isPressed)
-        {
-            float turnSpeed = +100f;
-            landerRigidbody2D.AddTorque(turnSpeed * Time.deltaTime);  // Time.deltaTime helps with mitigating client framerate differences as it splits up the
-                                                                      // physics calculations relative to the time elapsed between frames
-            OnLeftForce?.Invoke(this, EventArgs.Empty);
-        }
-        if (Keyboard.current.rightArrowKey.isPressed)
-        {
-            float turnSpeed = -100f;
-            landerRigidbody2D.AddTorque(turnSpeed * Time.deltaTime);
-            OnRightForce?.Invoke(this, EventArgs.Empty);
-        } 
-        #endregion
+        
     }
 
     // using 2D version of OnCollisionEnter since 3D version won't work properly
@@ -119,6 +161,7 @@ public class Lander : MonoBehaviour
                 scoreMultiplier = 0,
                 score = 0,
             });
+            SetState(State.GameOver);
             return;
         }
 
@@ -136,6 +179,7 @@ public class Lander : MonoBehaviour
                 scoreMultiplier = 0,
                 score = 0,
             });
+            SetState(State.GameOver);
             return;
         }
 
@@ -153,6 +197,7 @@ public class Lander : MonoBehaviour
                 scoreMultiplier = 0,
                 score = 0,
             });
+            SetState(State.GameOver);
             return;
         }
 
@@ -181,6 +226,7 @@ public class Lander : MonoBehaviour
             scoreMultiplier = landingPad.GetScoreMultiplier(),
             score = score,
         });  // custom eventArgs for when we want to pass on additional information with our invoked event (i.e. score)
+        SetState(State.GameOver);
     }
 
     /// <summary>
@@ -245,5 +291,13 @@ public class Lander : MonoBehaviour
     public float GetSpeedY()
     {
         return landerRigidbody2D.linearVelocityY;
+    }
+
+    private void SetState(State state)
+    {
+        this.state = state;
+        OnStateChanged?.Invoke(this, new OnStateChangedEventArgs {
+            state = state,
+        });
     }
 }
