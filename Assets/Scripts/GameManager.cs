@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using Unity.Cinemachine;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -10,9 +9,8 @@ public class GameManager : MonoBehaviour
 
     #region Lander Reference Notes
     // Q: We need a reference to the Lander
-    // A:
-    // [SerializeField] private Lander lander; // <- we can do this and drag lander object into the field in the inspector
-    // OR use singleton pattern to always have a reference to the lander via the Lander class itself 
+    // A: [SerializeField] private Lander lander; // <- we can do this and drag lander object into the field in the inspector
+    //    OR use singleton pattern to always have a reference to the lander via the Lander class itself (what we usually end up doing)
     #endregion
 
     private static int levelNumber = 1;  // static to persist between scene loading
@@ -22,10 +20,19 @@ public class GameManager : MonoBehaviour
     public event EventHandler OnGamePaused;
     public event EventHandler OnGameUnPaused;
 
-
+    private static int totalScore = 0;
     private int score;
     private float time;
     private bool isTimerActive;
+
+    /// <summary>
+    /// Reset static data to start of game status
+    /// </summary>
+    public static void ResetStaticData()
+    {
+        levelNumber = 1;
+        totalScore = 0;
+    }
 
     private void Awake()
     {
@@ -34,7 +41,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        // getting the lander reference from the class itself since we initialized it as a singleton/static 
+        // event listener attached to the lander reference from the class itself since we initialized it as a singleton/static 
         Lander.Instance.OnCoinPickup += Lander_OnCoinPickup;  
         Lander.Instance.OnLanded += Lander_OnLanded;
         Lander.Instance.OnStateChanged += Lander_OnStateChanged;
@@ -54,21 +61,33 @@ public class GameManager : MonoBehaviour
     /// </summary>
     private void LoadCurrentLevel()
     {
+        GameLevel gameLevel = GetGameLevel();
+        // spawn game level
+        GameLevel spawnedGameLevel = Instantiate(gameLevel, Vector3.zero, Quaternion.identity);
+        // setting lander at start position
+        Lander.Instance.transform.position = spawnedGameLevel.GetLanderStartPosition();
+        // setting camera track target
+        cinemachineCamera.Target.TrackingTarget = spawnedGameLevel.GetCameraStartTargetTransform();
+        // setting camera zoom
+        CinemachineCameraZoom2D.Instance.SetTargetOrthographicSize(spawnedGameLevel.GetZoomedOutOrthographicSize());
+    }
+
+    /// <summary>
+    /// returns the game level if level number is valid, null otherwise
+    /// </summary>
+    /// <returns></returns>
+    private GameLevel GetGameLevel()
+    {
         foreach (GameLevel gameLevel in gameLevelsList)
         {
             if (gameLevel.GetLevelNumber() == levelNumber)
             {
-                // spawn game level
-                GameLevel spawnedGameLevel = Instantiate(gameLevel, Vector3.zero, Quaternion.identity);
-                // setting lander at start position
-                Lander.Instance.transform.position = spawnedGameLevel.GetLanderStartPosition();
-                // setting camera track target
-                cinemachineCamera.Target.TrackingTarget = spawnedGameLevel.GetCameraStartTargetTransform();
-                // setting camera zoom
-                CinemachineCameraZoom2D.Instance.SetTargetOrthographicSize(spawnedGameLevel.GetZoomedOutOrthographicSize());
+                return gameLevel;
             }
         }
+        return null;
     }
+
 
     private void Lander_OnStateChanged(object sender, Lander.OnStateChangedEventArgs e)
     {
@@ -128,7 +147,18 @@ public class GameManager : MonoBehaviour
     public void GoToNextLevel()
     {
         levelNumber++;
-        SceneLoader.LoadScene(SceneLoader.Scene.GameScene);
+        totalScore += score;
+
+        if (GetGameLevel() == null)
+        {
+            // no more levels, go to ending scene
+            SceneLoader.LoadScene(SceneLoader.Scene.GameOverScene);
+        }
+        else {
+            // more levels to go
+            SceneLoader.LoadScene(SceneLoader.Scene.GameScene);
+        }
+            
     }
 
     public void RetryLevel()
@@ -158,5 +188,10 @@ public class GameManager : MonoBehaviour
         {
             UnPauseGame();
         }
+    }
+
+    public int GetTotalScore()
+    {
+        return totalScore;
     }
 }
