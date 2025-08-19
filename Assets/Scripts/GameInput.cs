@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class GameInput : MonoBehaviour
@@ -6,11 +7,20 @@ public class GameInput : MonoBehaviour
 
     private InputActions inputActions;  // reference to the input actions we generated (project right click -> create -> input actions)
 
+    public event EventHandler OnMenuButtonPressed;
+
     private void Awake()
     {
         Instance = this;
         inputActions = new InputActions();
         inputActions.Enable();  // input actions always need to be enabled to function
+
+        inputActions.Player.Menu.performed += Menu_performed;
+    }
+
+    private void Menu_performed(UnityEngine.InputSystem.InputAction.CallbackContext obj)
+    {
+        OnMenuButtonPressed?.Invoke(this, EventArgs.Empty);
     }
 
     private void OnDestroy()
@@ -33,6 +43,6 @@ public class GameInput : MonoBehaviour
 
     public Vector2 GetMovementInputVector2()
     {
-        return inputActions.Player.Movement.ReadValue<Vector2>();
+        return inputActions.Player.Movement.ReadValue<Vector2>();  // do this to read the value of the Vector2 types
     }
 }
