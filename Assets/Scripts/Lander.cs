@@ -90,7 +90,8 @@ public class Lander : MonoBehaviour
                 // if any key is pressed, consumeFuel()
                 if (GameInput.Instance.IsUpActionsPressed() ||
                     GameInput.Instance.IsLeftActionsPressed() ||
-                    GameInput.Instance.IsRightActionsPressed())
+                    GameInput.Instance.IsRightActionsPressed() ||
+                    GameInput.Instance.GetMovementInputVector2() != Vector2.zero)
                 {
                     landerRigidbody2D.gravityScale = GRAVITY_NORMAL;
                     SetState(State.Normal);
@@ -107,21 +108,26 @@ public class Lander : MonoBehaviour
                 // if any key is pressed, ConsumeFuel()
                 if (GameInput.Instance.IsUpActionsPressed() ||
                     GameInput.Instance.IsLeftActionsPressed() ||
-                    GameInput.Instance.IsRightActionsPressed())
+                    GameInput.Instance.IsRightActionsPressed() ||
+                    GameInput.Instance.GetMovementInputVector2() != Vector2.zero)
                 {
                     ConsumeFuel();
                 }
 
-                if (GameInput.Instance.IsUpActionsPressed())
+                float gamepadDeadZone = 0.2f;
+                if (GameInput.Instance.IsUpActionsPressed() ||
+                    GameInput.Instance.GetMovementInputVector2().y > gamepadDeadZone)
                 {
                     float force = 700f;                                                 // use local variables with clear descriptive names, not magic numbers!
-                    landerRigidbody2D.AddForce(force * transform.up * Time.deltaTime);  // using transform.up allows the force to be applied where the lander is pointing, rather the global "up"
+                    landerRigidbody2D.AddForce(force * Time.deltaTime * transform.up);  // using transform.up allows the force to be applied where the lander is pointing, rather the
+                                                                                        // global "up"
                     OnUpForce?.Invoke(this, EventArgs.Empty);         // (?) is the null conditional operator. Operation continues only if OnUpForce is not null
                                                                       // .Invoke(object invoking event, args to send with event); Invoked events can be listened
                                                                       // to by other classes
                 }
 
-                if (GameInput.Instance.IsLeftActionsPressed())
+                if (GameInput.Instance.IsLeftActionsPressed() ||
+                    GameInput.Instance.GetMovementInputVector2().x < -gamepadDeadZone)
                 {
                     float turnSpeed = +100f;
                     landerRigidbody2D.AddTorque(turnSpeed * Time.deltaTime);  // Time.deltaTime helps with mitigating client framerate differences as it splits up the
@@ -129,7 +135,8 @@ public class Lander : MonoBehaviour
                     OnLeftForce?.Invoke(this, EventArgs.Empty);
                 }
 
-                if (GameInput.Instance.IsRightActionsPressed())
+                if (GameInput.Instance.IsRightActionsPressed() ||
+                    GameInput.Instance.GetMovementInputVector2().x > gamepadDeadZone)
                 {
                     float turnSpeed = -100f;
                     landerRigidbody2D.AddTorque(turnSpeed * Time.deltaTime);

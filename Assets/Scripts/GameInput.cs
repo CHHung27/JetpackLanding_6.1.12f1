@@ -13,6 +13,11 @@ public class GameInput : MonoBehaviour
         inputActions.Enable();  // input actions always need to be enabled to function
     }
 
+    private void OnDestroy()
+    {
+        inputActions.Disable();
+    }
+
     public bool IsUpActionsPressed()
     {
         return inputActions.Player.LanderUp.IsPressed();
@@ -26,8 +31,8 @@ public class GameInput : MonoBehaviour
         return inputActions.Player.LanderRight.IsPressed();
     }
 
-    private void OnDestroy()
+    public Vector2 GetMovementInputVector2()
     {
-        inputActions.Disable();
+        return inputActions.Player.Movement.ReadValue<Vector2>();
     }
 }
