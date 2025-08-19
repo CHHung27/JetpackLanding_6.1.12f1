@@ -87,6 +87,37 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &1973452707744246413
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5072057515233442749}
+  m_Layer: 0
+  m_Name: CameraStartTarget
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5072057515233442749
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1973452707744246413}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -6, y: 6.22, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4032918373180316813}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2198670308857398038
 GameObject:
   m_ObjectHideFlags: 0
@@ -642,6 +673,7 @@ Transform:
   - {fileID: 9199693070292174119}
   - {fileID: 3904917831652206292}
   - {fileID: 4423865077599027969}
+  - {fileID: 5072057515233442749}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &-7850522279381976689
@@ -658,6 +690,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelNumber: 2
   landerStartPositionTransform: {fileID: 1564452135040140155}
+  cameraStartTargetTransform: {fileID: 5072057515233442749}
+  zoomedOutOrthographicSize: 28
 --- !u!1 &6112734784175387355
 GameObject:
   m_ObjectHideFlags: 0
