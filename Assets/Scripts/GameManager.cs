@@ -1,11 +1,21 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
 
-    // need reference to the Lander
-    //[SerializeField] private Lander lander; // 1) can do this and drag lander object in the, OR do what we did below
+    #region Lander Reference Notes
+    // Q: We need a reference to the Lander
+    // A:
+    // [SerializeField] private Lander lander; // <- we can do this and drag lander object into the field in the inspector
+    // OR use singleton pattern to always have a reference to the lander via the Lander class itself 
+    #endregion
+
+    private static int levelNumber = 1;  // static to persist between scene loading
+    [SerializeField] private List<GameLevel> gameLevelsList;
+
     private int score;
     private float time;
     private bool isTimerActive;
@@ -21,6 +31,26 @@ public class GameManager : MonoBehaviour
         Lander.Instance.OnCoinPickup += Lander_OnCoinPickup;  
         Lander.Instance.OnLanded += Lander_OnLanded;
         Lander.Instance.OnStateChanged += Lander_OnStateChanged;
+
+        LoadCurrentLevel();
+    }
+
+
+    /// <summary>
+    /// interates through the game level list to find the correct level, spawns it, and then set the lander at correct starting position
+    /// </summary>
+    private void LoadCurrentLevel()
+    {
+        foreach (GameLevel gameLevel in gameLevelsList)
+        {
+            if (gameLevel.GetLevelNumber() == levelNumber)
+            {
+                // spawn game level
+                GameLevel spawnedGameLevel = Instantiate(gameLevel, Vector3.zero, Quaternion.identity);
+                // setting lander at start position
+                Lander.Instance.transform.position = spawnedGameLevel.GetLanderStartPosition();
+            }
+        }
     }
 
     private void Lander_OnStateChanged(object sender, Lander.OnStateChangedEventArgs e)
@@ -65,5 +95,21 @@ public class GameManager : MonoBehaviour
     public float GetTime()
     {
         return time;
+    }
+
+    public int GetLevelNumber()
+    {
+        return levelNumber;
+    }
+
+    public void GoToNextLevel()
+    {
+        levelNumber++;
+        SceneManager.LoadScene(0);
+    }
+
+    public void RetryLevel()
+    {
+        SceneManager.LoadScene(0);
     }
 }
