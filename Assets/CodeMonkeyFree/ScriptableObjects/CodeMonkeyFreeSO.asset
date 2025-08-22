@@ -14,40 +14,40 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentVersion: 1.00
   subtype: lunarLanderFree
-  lastShownTimestamp: 1755582563
+  lastShownTimestamp: 1755848988
   lastUpdateResponse:
     version: 1.00
     versionUrl: https://unitycodemonkey.com
-  checkedLastUpdateTimestamp: 1755582563
+  checkedLastUpdateTimestamp: 1755848988
   lastQOTDResponse:
-    questionId: 211
-    questionText: Can you modify transform.forward directly to rotate a transform?
-    answerA: Yes
-    answerB: No
-    answerC: 
+    questionId: 213
+    questionText: What is the purpose of a namespace?
+    answerA: To confuse you
+    answerB: Better performance
+    answerC: Keep your code organized
     answerD: 
     answerE: 
-  lastQotdTimestamp: 1755582563
+  lastQotdTimestamp: 1755848988
   lastDynamicHeaderResponse:
-    topImageUrl: https://codemonkeyexternal.blob.core.windows.net/external/Misc/summer2025CodeMonkeyBundle.png
+    topImageUrl: https://codemonkeyexternal.blob.core.windows.net/external/Misc/summer2025CodeMonkeyBundle_EndsSoon.png
     topText: All my Courses (and Games) in one Bundle! DEEP DISCOUNT ONLY THIS SUMMER!
     topLink: summer2025bundle
     bottomText: Get my Code Monkey Toolkit and make games BETTER and FASTER! 50%
       OFF right now!
     bottomLink: toolkit
-  lastDynamicHeaderTimestamp: 1755582563
+  lastDynamicHeaderTimestamp: 1755848988
   websiteLatestMessage:
     text: <a href="https://cmonkey.co/freecourses">Check out all my FREE courses!
       Click here!</a>
-  websiteLatestMessageTimestamp: 1755582563
+  websiteLatestMessageTimestamp: 1755848988
   websiteLatestVideos:
     videos:
-    - youTubeId: CZ5rsOwgcl4
-      title: Unity 6.2 is HERE!
-    - youTubeId: taWg92DaORw
-      title: The 5 MUST HAVE Assets you NEED! (SALE ENDS SOON!)
-    - youTubeId: nGKd4yTP3M8
-      title: Learn Unity 2D Beginner FREE COMPLETE Course
-    - youTubeId: 7xz5Xh4E_B0
-      title: I NEED your HELP!
-  websiteLatestVideosTimestamp: 1755582563
+    - youTubeId: Lgmv7PYKka8
+      title: Does this AI FINALLY replace Game Devs? Should YOU worry?
+    - youTubeId: x4BTbeKinSI
+      title: TOP 10 FREE NEW Assets AUGUST 2025!
+    - youTubeId: HZ48JOAf-Ko
+      title: Did I STOP making TUTORIALS?
+    - youTubeId: XJsidUVPOCY
+      title: TOP 10 NEW Games, Made with Unity! (JULY 2025)
+  websiteLatestVideosTimestamp: 1755848988
