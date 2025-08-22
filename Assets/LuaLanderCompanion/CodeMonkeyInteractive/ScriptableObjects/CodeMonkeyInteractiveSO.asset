@@ -13,25 +13,90 @@ MonoBehaviour:
   m_Name: CodeMonkeyInteractiveSO
   m_EditorClassIdentifier: 
   currentVersion: 1.02
-  quizStateList: []
-  frequentlyAskedQuestionStateList: []
+  quizStateList:
+  - quizSO: {fileID: 11400000, guid: 385bf9cdb284c014fac09fd7dd945d77, type: 2}
+    state: 2
+  - quizSO: {fileID: 11400000, guid: 36f7fe6768efdc749af310f1ef749319, type: 2}
+    state: 2
+  - quizSO: {fileID: 11400000, guid: d7847bfafd8448d4c98a44c5df6a75ce, type: 2}
+    state: 2
+  - quizSO: {fileID: 11400000, guid: 33c2a9f191be940479825532770c355f, type: 2}
+    state: 2
+  - quizSO: {fileID: 11400000, guid: 1c1c02c1183e8a94bb9e5b178ea1758e, type: 2}
+    state: 2
+  - quizSO: {fileID: 11400000, guid: 4232a82859e70f349accdcdfcd891271, type: 2}
+    state: 2
+  - quizSO: {fileID: 11400000, guid: e04cb34546da4e24daadd54d01989881, type: 2}
+    state: 2
+  - quizSO: {fileID: 11400000, guid: 831b34d491b575c42883961bb32e0392, type: 2}
+    state: 2
+  - quizSO: {fileID: 11400000, guid: 9041e1f8aecb8214788dddce15d57a75, type: 2}
+    state: 2
+  - quizSO: {fileID: 11400000, guid: b5005a521e889c947beb3ce09f8a9f85, type: 2}
+    state: 2
+  - quizSO: {fileID: 11400000, guid: 0f71dc7363ca81a478a652cac7005196, type: 2}
+    state: 2
+  - quizSO: {fileID: 11400000, guid: 3a5f0e9f9243f7a4f822f9b59f33df19, type: 2}
+    state: 2
+  - quizSO: {fileID: 11400000, guid: 91172269d4ef7bb4cb1ac426be114d86, type: 2}
+    state: 2
+  - quizSO: {fileID: 11400000, guid: 563c522e4314acc4395dd7595a66ca82, type: 2}
+    state: 2
+  - quizSO: {fileID: 11400000, guid: 0c01178b4cfbf6b48b527555237d534e, type: 2}
+    state: 2
+  frequentlyAskedQuestionStateList:
+  - frequentlyAskedQuestionSO: {fileID: 11400000, guid: 37e3b4a50eecfcc4d80cdd23e41b5db0, type: 2}
+    state: 2
+  - frequentlyAskedQuestionSO: {fileID: 11400000, guid: 6ee83cbf0632ee04b86958469a4f4246, type: 2}
+    state: 2
+  - frequentlyAskedQuestionSO: {fileID: 11400000, guid: b884a983dbe830e44aead5cd9659dc19, type: 2}
+    state: 2
+  - frequentlyAskedQuestionSO: {fileID: 11400000, guid: 46c10df2da8879e4fac8ab432ef7e778, type: 2}
+    state: 2
+  - frequentlyAskedQuestionSO: {fileID: 11400000, guid: 9cd0e27a2f4aa634dab76fb25e85db48, type: 2}
+    state: 2
+  - frequentlyAskedQuestionSO: {fileID: 11400000, guid: e82c2751f3eb364468a3fc65f2442708, type: 2}
+    state: 2
+  - frequentlyAskedQuestionSO: {fileID: 11400000, guid: 02424ef70a09e304c91f6458d3ed1088, type: 2}
+    state: 2
+  - frequentlyAskedQuestionSO: {fileID: 11400000, guid: 95c594d1beffd924da49766b0d505a83, type: 2}
+    state: 2
+  - frequentlyAskedQuestionSO: {fileID: 11400000, guid: e66e8dd7e482e3d4391189be741beec9, type: 2}
+    state: 2
+  - frequentlyAskedQuestionSO: {fileID: 11400000, guid: 37a9e53ae3c5c3a4fb1e4f18380139f9, type: 2}
+    state: 2
+  - frequentlyAskedQuestionSO: {fileID: 11400000, guid: ea4f3286d163c3a4fae387749aeee126, type: 2}
+    state: 2
+  - frequentlyAskedQuestionSO: {fileID: 11400000, guid: 79905909059b87447886a1922957a50e, type: 2}
+    state: 2
+  - frequentlyAskedQuestionSO: {fileID: 11400000, guid: 51a9ff743fe166846904ba58023dd714, type: 2}
+    state: 2
+  - frequentlyAskedQuestionSO: {fileID: 11400000, guid: 9c3ebb470436f674ebf576a707c2b3c5, type: 2}
+    state: 2
+  - frequentlyAskedQuestionSO: {fileID: 11400000, guid: e3c598032e0f1694c8a6d6683609e3c0, type: 2}
+    state: 2
+  - frequentlyAskedQuestionSO: {fileID: 11400000, guid: 46bf41fdf4a40a64e9aec1450a6edab5, type: 2}
+    state: 2
+  - frequentlyAskedQuestionSO: {fileID: 11400000, guid: f49bb2d411262534bac2af2126edfaab, type: 2}
+    state: 2
+  - frequentlyAskedQuestionSO: {fileID: 11400000, guid: 398c65dc32a55a34294ced880b2621ad, type: 2}
+    state: 2
   exerciseStateList: []
   lectureListSO: {fileID: 11400000, guid: c1af4d7cadebe754fa5ac3880e0890f9, type: 2}
   defaultScene: {fileID: 102900000, guid: bb81c32a07e112643ac0b41e5f2d830a, type: 3}
   activeExerciseSO: {fileID: 0}
-  lastSelectedLectureSO: {fileID: 11400000, guid: 790c70be8e2ecba4ba9dd582fe90022b,
-    type: 2}
-  checkedLastUpdateTimestamp: 0
-  lastUpdateVersion: 1.01
+  lastSelectedLectureSO: {fileID: 11400000, guid: a056bb3a831c96448bbd367d06f7567a, type: 2}
+  checkedLastUpdateTimestamp: 1755849135
+  lastUpdateVersion: 1.02
   lastQOTDResponse:
-    questionId: 209
-    questionText: Can Color ever be null?
-    answerA: Yes, always
-    answerB: No
-    answerC: Yes, as Nullable
+    questionId: 213
+    questionText: What is the purpose of a namespace?
+    answerA: To confuse you
+    answerB: Better performance
+    answerC: Keep your code organized
     answerD: 
     answerE: 
-  lastQotdTimestamp: 0
+  lastQotdTimestamp: 1755849135
   websiteLatestMessage:
     text: 'Hi there!
 
@@ -47,22 +112,22 @@ MonoBehaviour:
 
       Join the <b>Private Discord</b> and <b>Weekly Private Livestreams</b>
       where I''m there to answer any questions you have.<br><a href=''https://cmonkey.co/lualanderprivate''>https://cmonkey.co/lualanderprivate</a>'
-  websiteLatestMessageTimestamp: 0
+  websiteLatestMessageTimestamp: 1755849135
   websiteDynamicMessage:
     text: <u>Fresh Assets on Sale!</u>
     url: https://cmonkey.co/unityassetstore
-  websiteDynamicMessageTimestamp: 0
+  websiteDynamicMessageTimestamp: 1755849135
   websiteLatestVideos:
     videos:
-    - youTubeId: 7xz5Xh4E_B0
-      title: I NEED your HELP!
-    - youTubeId: y-w3vnh_f4Q
-      title: Are Old Tutorials OBSOLETE?
-    - youTubeId: DaKW4kqFlao
-      title: How to LEARN new Skills on HARD MODE!
-    - youTubeId: ubBS7vTQlVo
-      title: Cooking is HARDER than Programming!
-  websiteLatestVideosTimestamp: 0
+    - youTubeId: Lgmv7PYKka8
+      title: Does this AI FINALLY replace Game Devs? Should YOU worry?
+    - youTubeId: x4BTbeKinSI
+      title: TOP 10 FREE NEW Assets AUGUST 2025!
+    - youTubeId: HZ48JOAf-Ko
+      title: Did I STOP making TUTORIALS?
+    - youTubeId: XJsidUVPOCY
+      title: TOP 10 NEW Games, Made with Unity! (JULY 2025)
+  websiteLatestVideosTimestamp: 1755849135
   lastChatAIQuestionAsked: Is Unity good for making 2D games?
   lastChatAIQuestionAnswer: 'Unity is great for making 2D games! It provides a wide
     range of tools and features specifically designed for 2D game development. Unity''s
