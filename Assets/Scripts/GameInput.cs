@@ -15,7 +15,7 @@ public class GameInput : MonoBehaviour
         inputActions = new InputActions();
         inputActions.Enable();  // input actions always need to be enabled to function
 
-        inputActions.Player.Menu.performed += Menu_performed;
+        inputActions.Player.Menu.performed += Menu_performed;  // listening to menu performed; "esc" key pressed
     }
 
     private void Menu_performed(UnityEngine.InputSystem.InputAction.CallbackContext obj)

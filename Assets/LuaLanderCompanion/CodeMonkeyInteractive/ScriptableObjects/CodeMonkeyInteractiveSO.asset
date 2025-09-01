@@ -128,6 +128,28 @@ MonoBehaviour:
     state: 2
   - quizSO: {fileID: 11400000, guid: 69f013dc83d7b2748a514950565b06ac, type: 2}
     state: 2
+  - quizSO: {fileID: 11400000, guid: ccb51a852e2da9a469a542ddc998e34c, type: 2}
+    state: 2
+  - quizSO: {fileID: 11400000, guid: 2cc83024b3b0c804e95bc25ef8ea9c33, type: 2}
+    state: 2
+  - quizSO: {fileID: 11400000, guid: 293633d6117ee0e4aba965d5bd8d9e91, type: 2}
+    state: 2
+  - quizSO: {fileID: 11400000, guid: 6dea479d77178674a84672255a964ed6, type: 2}
+    state: 2
+  - quizSO: {fileID: 11400000, guid: 203d8406a55efb247bddb0e08976160c, type: 2}
+    state: 2
+  - quizSO: {fileID: 11400000, guid: 5afa4121225f4f54993120a2d480e1c8, type: 2}
+    state: 2
+  - quizSO: {fileID: 11400000, guid: 190e3a4b7e0b2564fac6759ac4d39a35, type: 2}
+    state: 2
+  - quizSO: {fileID: 11400000, guid: 81c25439a5b753647b300624161c37d2, type: 2}
+    state: 2
+  - quizSO: {fileID: 11400000, guid: c523d3c0995c9ab4f9481b9cb8d68b8a, type: 2}
+    state: 2
+  - quizSO: {fileID: 11400000, guid: 7af2d3b4eb6be2140a7103934d7b4f64, type: 2}
+    state: 2
+  - quizSO: {fileID: 11400000, guid: 7543d5939c4486e408b5383e749c9b29, type: 2}
+    state: 2
   frequentlyAskedQuestionStateList:
   - frequentlyAskedQuestionSO: {fileID: 11400000, guid: 37e3b4a50eecfcc4d80cdd23e41b5db0, type: 2}
     state: 2
@@ -253,22 +275,63 @@ MonoBehaviour:
     state: 2
   - frequentlyAskedQuestionSO: {fileID: 11400000, guid: eecca85d873d2824aa4fa598fe900fcd, type: 2}
     state: 2
+  - frequentlyAskedQuestionSO: {fileID: 11400000, guid: c88fc26535cb6a147891a70f224df1d0, type: 2}
+    state: 2
+  - frequentlyAskedQuestionSO: {fileID: 11400000, guid: d7ff49c57641b58499c8e4b1a78f31da, type: 2}
+    state: 2
+  - frequentlyAskedQuestionSO: {fileID: 11400000, guid: 6de2f8d7c67e22547a14962f18709e62, type: 2}
+    state: 2
+  - frequentlyAskedQuestionSO: {fileID: 11400000, guid: 0802ec7c538766044950ecef1b558d4f, type: 2}
+    state: 2
+  - frequentlyAskedQuestionSO: {fileID: 11400000, guid: be629f58ee1e6ba4cbcfe1e2a471880f, type: 2}
+    state: 2
+  - frequentlyAskedQuestionSO: {fileID: 11400000, guid: bfd605ae01434104eb516d9e50399a3b, type: 2}
+    state: 2
+  - frequentlyAskedQuestionSO: {fileID: 11400000, guid: 9350167a03e724d439237c7c172a751c, type: 2}
+    state: 2
+  - frequentlyAskedQuestionSO: {fileID: 11400000, guid: e14d5af7f6701f745be33489481566da, type: 2}
+    state: 2
+  - frequentlyAskedQuestionSO: {fileID: 11400000, guid: 565eb32751bfbb849a3898d12a21ff14, type: 2}
+    state: 2
+  - frequentlyAskedQuestionSO: {fileID: 11400000, guid: 2fe3f387823bc294aa80b8fd3302df95, type: 2}
+    state: 2
+  - frequentlyAskedQuestionSO: {fileID: 11400000, guid: 8160fe0f6db6ba143bc8c6cab22e0759, type: 2}
+    state: 2
   exerciseStateList: []
   lectureListSO: {fileID: 11400000, guid: c1af4d7cadebe754fa5ac3880e0890f9, type: 2}
   defaultScene: {fileID: 102900000, guid: bb81c32a07e112643ac0b41e5f2d830a, type: 3}
   activeExerciseSO: {fileID: 0}
-  lastSelectedLectureSO: {fileID: 11400000, guid: cfdd1d00b657d11498295d12bef9c8f4, type: 2}
-  checkedLastUpdateTimestamp: 1755849135
-  lastUpdateVersion: 1.02
+  lastSelectedLectureSO: {fileID: 11400000, guid: 7c65d5b5d6e6b5f4eaeb6be49fa4b8ed, type: 2}
+  checkedLastUpdateTimestamp: 1756706700
+  lastUpdateVersion: 1.03
   lastQOTDResponse:
-    questionId: 213
-    questionText: What is the purpose of a namespace?
-    answerA: To confuse you
-    answerB: Better performance
-    answerC: Keep your code organized
+    questionId: 217
+    questionText: 'When would this code cause an error?
+
+      <p>Building closest
+      = null;</p>
+
+      <p>for (int i = 0; i < instanceList.Count; i++) {</p>
+
+      <p>&nbsp;
+      &nbsp; if (Vector3.Distance(position, instanceList[i].GetPosition()) < Vector3.Distance(position,
+      closest.GetPosition())) {</p>
+
+      <p>&nbsp; &nbsp; &nbsp; &nbsp; closest
+      = instanceList[i];</p>
+
+      <p>&nbsp; &nbsp; }</p>
+
+      <p>}</p>
+
+      <p>return
+      closest;</p>'
+    answerA: When instanceList is empty
+    answerB: When instanceList has at least one element
+    answerC: When instanceList has exactly two elements
     answerD: 
     answerE: 
-  lastQotdTimestamp: 1755849135
+  lastQotdTimestamp: 1756706700
   websiteLatestMessage:
     text: 'Hi there!
 
@@ -284,45 +347,77 @@ MonoBehaviour:
 
       Join the <b>Private Discord</b> and <b>Weekly Private Livestreams</b>
       where I''m there to answer any questions you have.<br><a href=''https://cmonkey.co/lualanderprivate''>https://cmonkey.co/lualanderprivate</a>'
-  websiteLatestMessageTimestamp: 1755849135
+  websiteLatestMessageTimestamp: 1756706700
   websiteDynamicMessage:
     text: <u>Fresh Assets on Sale!</u>
     url: https://cmonkey.co/unityassetstore
-  websiteDynamicMessageTimestamp: 1755849135
+  websiteDynamicMessageTimestamp: 1756706700
   websiteLatestVideos:
     videos:
-    - youTubeId: Lgmv7PYKka8
-      title: Does this AI FINALLY replace Game Devs? Should YOU worry?
-    - youTubeId: x4BTbeKinSI
-      title: TOP 10 FREE NEW Assets AUGUST 2025!
-    - youTubeId: HZ48JOAf-Ko
-      title: Did I STOP making TUTORIALS?
-    - youTubeId: XJsidUVPOCY
-      title: TOP 10 NEW Games, Made with Unity! (JULY 2025)
-  websiteLatestVideosTimestamp: 1755849135
-  lastChatAIQuestionAsked: Is Unity good for making 2D games?
-  lastChatAIQuestionAnswer: 'Unity is great for making 2D games! It provides a wide
-    range of tools and features specifically designed for 2D game development. Unity''s
-    2D toolset includes sprites, animations, physics, and a robust editor that allows
-    for easy control over your game environment. Additionally, Unity''s Asset Store
-    offers a plethora of 2D assets you can use to speed up development.
+    - youTubeId: C66iDut3jTM
+      title: BEST NEW Visual Assets to INSPIRE YOU!
+    - youTubeId: JZHByNNQb3I
+      title: 8 QUICK Success and Marketing Tips you NEED to know!
+    - youTubeId: FrKLJ1nCsxY
+      title: Indie Dev makes $4 MILLION... then goes broke!
+    - youTubeId: _fymNH4flZE
+      title: TOP 10 NEW Systems and Tools AUGUST 2025! | Unity Asset Store
+  websiteLatestVideosTimestamp: 1756706700
+  lastChatAIQuestionAsked: My gamepad can't click buttons!
+  lastChatAIQuestionAnswer: 'If your gamepad can''t click buttons in your Unity project,
+    there are a few things you can check and try:
 
 
-    In
-    my course "Learn How to Make a Simple Unity 2D Game! (Lua Lander)", we take full
-    advantage of Unity''s 2D capabilities. For example, we use the URP (Universal
-    Render Pipeline) for 2D, which is explained right at the beginning in the "Create
-    Project" lecture . We also dive deep into using terrain and sprite shapes for
-    creating levels and environments, as detailed in the "TerrainSpriteShape" lecture
-    .
+    1. **Check Input Actions**:
+    Make sure that your input actions are properly set up to include the gamepad.
+    In Lecture 1240 (MainMenu, Loading, Pause, Gamepad button clicks), it''s explained
+    that to support a gamepad, you simply need to add the appropriate bindings in
+    your input actions. Ensure that your actions have gamepad bindings along with
+    any other controls you''re using[SOURCE].
 
 
-    Overall, Unity''s versatility and strong support for 2D games make it
-    a solid choice for both beginners and experienced developers.
+    2. **Enable Input Actions**:
+    Your input actions must be enabled for them to work with the gamepad. After setting
+    up your input actions object, make sure you have called `inputActions.Enable();`.
+    This allows the input system to actively listen for actions[SOURCE].
 
 
-'
+    3.
+    **Event System Verification**: Ensure that you have an Event System in your scene.
+    This system is essential for UI interactions, and without it, button clicks may
+    not be registered[SOURCE].
+
+
+    4. **Correct Input Module**: Check if you have
+    the correct input module associated with the Event System. Using the input system
+    module will ensure proper interactions if you''re utilizing the new Input System
+    in Unity[SOURCE].
+
+
+    5. **Gamepad Configuration Check**: Double-check bindings
+    to ensure all necessary buttons on the gamepad are linked to the correct actions.
+    As mentioned in Lecture 1240, gamepad support can be extended by adding additional
+    bindings for each action[SOURCE].
+
+
+    Make sure you assess these elements in
+    your setup, and with these adjustments, your gamepad should work as intended!
+
+
+    [SOURCE]
+
+    Video
+    Quote: ""[SOURCE]
+
+    Video Quote: ""[SOURCE]
+
+    Video Quote: ""[SOURCE]
+
+    Video
+    Quote: ""[SOURCE]
+
+    Video Quote: ""'
   lastChatAIResponseAskSuccess:
     code: 1
-    runId: run_iex5F1qCMMH6BrhWwZQ4P6Wn
-    threadId: thread_C5FW4YqiqdC6E6nlnz8ZDFyX
+    runId: run_C6Om64x0vXipAAFJ3Fu3808D
+    threadId: thread_gBXDArL3PrNxZXTtMMUikioh
