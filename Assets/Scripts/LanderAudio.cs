@@ -23,11 +23,17 @@ public class LanderAudio : MonoBehaviour
         thrusterAudioSource.Pause();
     }
 
+    /// <summary>
+    /// changes the thruster volume to SoundManager's sound volume parameter; subscribed to OnSoundVolumeChanged
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private void SoundManager_OnSoundVolumeChanged(object sender, System.EventArgs e)
     {
         thrusterAudioSource.volume = SoundManager.Instance.GetSoundVolumeNormalized();
     }
 
+    #region Thruster Sounds
     private void Lander_OnBeforeForce(object sender, System.EventArgs e)
     {
         thrusterAudioSource.Pause();
@@ -55,5 +61,6 @@ public class LanderAudio : MonoBehaviour
         {
             thrusterAudioSource.Play();
         }
-    }
+    } 
+    #endregion
 }

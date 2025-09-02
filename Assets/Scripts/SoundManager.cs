@@ -4,6 +4,7 @@ using UnityEngine;
 public class SoundManager : MonoBehaviour
 {
     private const int SOUND_VOLUME_MAX = 10;
+
     private static int soundVolume = 6;
     private static bool isInitialSetup = true;
 
@@ -34,6 +35,23 @@ public class SoundManager : MonoBehaviour
     }
 
     #region Play Sound Events
+    private void Lander_OnFuelPickup(object sender, System.EventArgs e)
+    {
+        // plays fuel pickup sound right on top of the camera; since this is a 2D game
+        AudioSource.PlayClipAtPoint(fuelPickUpAudioClip, Camera.main.transform.position, GetSoundVolumeNormalized());
+    }
+
+    private void Lancer_OnCoinPickup(object sender, System.EventArgs e)
+    {
+        // plays coin pickup sound right on top of the camera; since this is a 2D game
+        AudioSource.PlayClipAtPoint(coinPickUpAudioClip, Camera.main.transform.position, GetSoundVolumeNormalized());
+    }
+
+    /// <summary>
+    /// plays success or failure landing sound based on LandingType
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private void Lander_OnLanded(object sender, Lander.OnLandedEventArgs e)
     {
         switch (e.landingType)
@@ -49,20 +67,11 @@ public class SoundManager : MonoBehaviour
 
         }
     }
-
-    private void Lander_OnFuelPickup(object sender, System.EventArgs e)
-    {
-        // plays fuel pickup sound right on top of the camera; since this is a 2D game
-        AudioSource.PlayClipAtPoint(fuelPickUpAudioClip, Camera.main.transform.position, GetSoundVolumeNormalized());
-    }
-
-    private void Lancer_OnCoinPickup(object sender, System.EventArgs e)
-    {
-        // plays coin pickup sound right on top of the camera; since this is a 2D game
-        AudioSource.PlayClipAtPoint(coinPickUpAudioClip, Camera.main.transform.position, GetSoundVolumeNormalized());
-    } 
     #endregion
 
+    /// <summary>
+    /// changes sound -> move up one level, looping back to 0 after 9
+    /// </summary>
     public void ChangeSoundVolume()
     {
         soundVolume = (soundVolume + 1) % SOUND_VOLUME_MAX;
@@ -74,6 +83,10 @@ public class SoundManager : MonoBehaviour
         return soundVolume;
     }
 
+    /// <summary>
+    /// returns sound volume as a percentage (float) of the volume max
+    /// </summary>
+    /// <returns></returns>
     public float GetSoundVolumeNormalized()
     {
         return ((float) soundVolume) / SOUND_VOLUME_MAX;

@@ -1,4 +1,3 @@
-using UnityEngine;
 using UnityEngine.SceneManagement;
 
 // static to make is persist and not related to any instance, but of the class itself

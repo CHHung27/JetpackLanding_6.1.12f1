@@ -1,39 +1,47 @@
 using TMPro;
 using UnityEngine;
-using UnityEngine.InputSystem.LowLevel;
 using UnityEngine.UI;
 
 public class TouchUI : MonoBehaviour
 {
     [SerializeField] private GameObject touchButtonsGroup, joystick;
-
     [SerializeField] private Button touchControlButton;
     [SerializeField] private TextMeshProUGUI touchControlText;
 
-    private enum ControlMethod
-    {
-        NoTouch,
-        TouchButtons,
-        TouchStick,
-    };
-
-    private ControlMethod controlMethod = ControlMethod.NoTouch;
+    private static ControlMethod controlMethod = ControlMethod.NoTouch;
 
     private void Awake()
     {
-        if (controlMethod == ControlMethod.NoTouch)
-        {
-            touchButtonsGroup.SetActive(false);
-            joystick.SetActive(false);
-            touchControlText.text = "NO TOUCH";
-        }
-
         touchControlButton.onClick.AddListener(() =>
         {
             UpdateTouchUI();
+            Debug.Log("Pressed Control Method Button");
         });
     }
 
+    private void Start()
+    {
+        GameManager.Instance.OnGamePaused += GameManager_OnGamePaused;
+        GameManager.Instance.OnGameUnPaused += GameManager_OnGameUnPaused;
+        Lander.Instance.OnLanded += Lander_OnLanded;
+
+        ToggleControlMethod();
+    }
+
+    private void GameManager_OnGamePaused(object sender, System.EventArgs e)
+    {
+        HideTouchUI();
+    }
+
+    private void GameManager_OnGameUnPaused(object sender, System.EventArgs e)
+    {
+        ShowTouchUI();
+    }
+
+    private void Lander_OnLanded(object sender, Lander.OnLandedEventArgs e)
+    {
+        HideTouchUI();
+    }
 
     private void UpdateTouchUI()
     {
@@ -65,4 +73,24 @@ public class TouchUI : MonoBehaviour
                 break;
         }
     }
+
+    private void ShowTouchUI()
+    {
+        gameObject.SetActive(true);
+    }
+
+    private void HideTouchUI()
+    {
+        gameObject.SetActive(false);
+    }
+    
+    //public ControlMethod GetControlMethod()
+    //{
+    //    return controlMethod;
+    //}
+
+    //public void SetControlMethod(ControlMethod newControlMethod)
+    //{
+    //    controlMethod = newControlMethod;
+    //}
 }

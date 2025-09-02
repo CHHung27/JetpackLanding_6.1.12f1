@@ -1,7 +1,5 @@
 ﻿using System;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 // to use this script (and any script for that matter) as an component, we need to inherit from MonoBehaviour
 public class Lander : MonoBehaviour
@@ -263,15 +261,6 @@ public class Lander : MonoBehaviour
         }
     }
         
-
-    // Update is called once per frame (EVERY SINGLE FRAME)
-    // we explicitly define this function as private to uphold clear, high quality code standards
-    private void Update()
-    {
-
-    }
-
-
     /// <summary>
     /// Takes away fuelConsumptionAmount from fuel, adjusted for Time.deltaTime (framerate differences)
     /// </summary>
