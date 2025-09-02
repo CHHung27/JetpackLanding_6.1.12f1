@@ -150,6 +150,14 @@ MonoBehaviour:
     state: 2
   - quizSO: {fileID: 11400000, guid: 7543d5939c4486e408b5383e749c9b29, type: 2}
     state: 2
+  - quizSO: {fileID: 11400000, guid: 201156ae58e56a943aec1d7576e20b73, type: 2}
+    state: 2
+  - quizSO: {fileID: 11400000, guid: 38812954f292dba49b7b82a4366c11d8, type: 2}
+    state: 2
+  - quizSO: {fileID: 11400000, guid: e9b43e8294079fe43a42deadb354ba9f, type: 2}
+    state: 2
+  - quizSO: {fileID: 11400000, guid: d0601be7bb194104abfde4cb6da7e721, type: 2}
+    state: 2
   frequentlyAskedQuestionStateList:
   - frequentlyAskedQuestionSO: {fileID: 11400000, guid: 37e3b4a50eecfcc4d80cdd23e41b5db0, type: 2}
     state: 2
@@ -297,12 +305,22 @@ MonoBehaviour:
     state: 2
   - frequentlyAskedQuestionSO: {fileID: 11400000, guid: 8160fe0f6db6ba143bc8c6cab22e0759, type: 2}
     state: 2
+  - frequentlyAskedQuestionSO: {fileID: 11400000, guid: ab0cb0fae2e4fe34babb097907c3ffa6, type: 2}
+    state: 2
+  - frequentlyAskedQuestionSO: {fileID: 11400000, guid: 8144e36cfea48ce4e99e8076dc1318a9, type: 2}
+    state: 2
+  - frequentlyAskedQuestionSO: {fileID: 11400000, guid: d1408fc1e12011d4b9afb8b39304f993, type: 2}
+    state: 2
+  - frequentlyAskedQuestionSO: {fileID: 11400000, guid: b0b86afb2165d474aa293a01ded90c52, type: 2}
+    state: 2
+  - frequentlyAskedQuestionSO: {fileID: 11400000, guid: 05ea5bb7cde496e47bb09ecbaa2ed608, type: 2}
+    state: 2
   exerciseStateList: []
   lectureListSO: {fileID: 11400000, guid: c1af4d7cadebe754fa5ac3880e0890f9, type: 2}
   defaultScene: {fileID: 102900000, guid: bb81c32a07e112643ac0b41e5f2d830a, type: 3}
   activeExerciseSO: {fileID: 0}
-  lastSelectedLectureSO: {fileID: 11400000, guid: 7c65d5b5d6e6b5f4eaeb6be49fa4b8ed, type: 2}
-  checkedLastUpdateTimestamp: 1756706700
+  lastSelectedLectureSO: {fileID: 11400000, guid: 5036d188b7127434789c81591f52e8b8, type: 2}
+  checkedLastUpdateTimestamp: 1756805196
   lastUpdateVersion: 1.03
   lastQOTDResponse:
     questionId: 217
@@ -331,7 +349,7 @@ MonoBehaviour:
     answerC: When instanceList has exactly two elements
     answerD: 
     answerE: 
-  lastQotdTimestamp: 1756706700
+  lastQotdTimestamp: 1756805196
   websiteLatestMessage:
     text: 'Hi there!
 
@@ -347,22 +365,22 @@ MonoBehaviour:
 
       Join the <b>Private Discord</b> and <b>Weekly Private Livestreams</b>
       where I''m there to answer any questions you have.<br><a href=''https://cmonkey.co/lualanderprivate''>https://cmonkey.co/lualanderprivate</a>'
-  websiteLatestMessageTimestamp: 1756706700
+  websiteLatestMessageTimestamp: 1756805196
   websiteDynamicMessage:
     text: <u>Fresh Assets on Sale!</u>
     url: https://cmonkey.co/unityassetstore
-  websiteDynamicMessageTimestamp: 1756706700
+  websiteDynamicMessageTimestamp: 1756805196
   websiteLatestVideos:
     videos:
+    - youTubeId: 8Ym28WJUYnQ
+      title: The BIGGEST Problem in Game Dev!
     - youTubeId: C66iDut3jTM
       title: BEST NEW Visual Assets to INSPIRE YOU!
     - youTubeId: JZHByNNQb3I
       title: 8 QUICK Success and Marketing Tips you NEED to know!
     - youTubeId: FrKLJ1nCsxY
       title: Indie Dev makes $4 MILLION... then goes broke!
-    - youTubeId: _fymNH4flZE
-      title: TOP 10 NEW Systems and Tools AUGUST 2025! | Unity Asset Store
-  websiteLatestVideosTimestamp: 1756706700
+  websiteLatestVideosTimestamp: 1756805196
   lastChatAIQuestionAsked: My gamepad can't click buttons!
   lastChatAIQuestionAnswer: 'If your gamepad can''t click buttons in your Unity project,
     there are a few things you can check and try:

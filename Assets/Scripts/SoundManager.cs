@@ -5,6 +5,7 @@ public class SoundManager : MonoBehaviour
 {
     private const int SOUND_VOLUME_MAX = 10;
     private static int soundVolume = 6;
+    private static bool isInitialSetup = true;
 
     public static SoundManager Instance { get; private set; }
 
@@ -22,11 +23,17 @@ public class SoundManager : MonoBehaviour
 
     private void Start()
     {
+        // sets sound parameter to the same as music parameter; but only if it's the
+        // first time entering game scene
+        if (isInitialSetup) soundVolume = MusicManager.Instance.GetMusicVolume();
+        isInitialSetup = false;
+
         Lander.Instance.OnFuelPickup += Lander_OnFuelPickup;
         Lander.Instance.OnCoinPickup += Lancer_OnCoinPickup;
         Lander.Instance.OnLanded += Lander_OnLanded;
     }
 
+    #region Play Sound Events
     private void Lander_OnLanded(object sender, Lander.OnLandedEventArgs e)
     {
         switch (e.landingType)
@@ -43,17 +50,18 @@ public class SoundManager : MonoBehaviour
         }
     }
 
-    private void Lancer_OnCoinPickup(object sender, System.EventArgs e)
-    {
-        // plays coin pickup sound right on top of the camera; since this is a 2D game
-        AudioSource.PlayClipAtPoint(coinPickUpAudioClip, Camera.main.transform.position, GetSoundVolumeNormalized()); 
-    }
-
     private void Lander_OnFuelPickup(object sender, System.EventArgs e)
     {
         // plays fuel pickup sound right on top of the camera; since this is a 2D game
         AudioSource.PlayClipAtPoint(fuelPickUpAudioClip, Camera.main.transform.position, GetSoundVolumeNormalized());
     }
+
+    private void Lancer_OnCoinPickup(object sender, System.EventArgs e)
+    {
+        // plays coin pickup sound right on top of the camera; since this is a 2D game
+        AudioSource.PlayClipAtPoint(coinPickUpAudioClip, Camera.main.transform.position, GetSoundVolumeNormalized());
+    } 
+    #endregion
 
     public void ChangeSoundVolume()
     {

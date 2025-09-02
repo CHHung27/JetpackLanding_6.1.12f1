@@ -56,6 +56,4 @@ public class LanderAudio : MonoBehaviour
             thrusterAudioSource.Play();
         }
     }
-
-    
 }

@@ -12,7 +12,6 @@ public class PauseUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI soundVolumeTextMesh;
 
 
-
     private void Awake()
     {
         resumeButton.onClick.AddListener(() => {
@@ -23,7 +22,9 @@ public class PauseUI : MonoBehaviour
         });
         musicVolumeButton.onClick.AddListener(() =>
         {
-            
+            MusicManager.Instance.ChangeMusicVolume();
+            musicVolumeTextMesh.text = "MUSIC " + MusicManager.Instance.GetMusicVolume();
+
         });
         soundVolumeButton.onClick?.AddListener(() =>
         {
@@ -38,6 +39,7 @@ public class PauseUI : MonoBehaviour
         GameManager.Instance.OnGameUnPaused += GameManager_OnGameUnPaused;
 
         soundVolumeTextMesh.text = "SOUND " + SoundManager.Instance.GetSoundVolume();
+        musicVolumeTextMesh.text = "MUSIC " + MusicManager.Instance.GetMusicVolume();
         Hide();
     }
 
